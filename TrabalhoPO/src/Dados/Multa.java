@@ -18,7 +18,7 @@ public class Multa {
 	}
 	
 	public Multa() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public String getPlaca() {

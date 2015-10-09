@@ -10,8 +10,7 @@ public class Apoio {
 
 	public static Multa[] lerArquivo(String caminhoArquivo, int tamanhoVetor) {
 		
-		try {	
-			
+		try {				
 			FileInputStream stream = new FileInputStream(caminhoArquivo);
 			InputStreamReader reader = new InputStreamReader(stream);
 			BufferedReader br = new BufferedReader(reader);	
@@ -28,11 +27,11 @@ public class Apoio {
 				multa.setHora(campos[4]);
 				multas[i] = multa;				
 			}			
-			return multas;
-			
+			return multas;			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		return null;		
+		
 	}
 }
