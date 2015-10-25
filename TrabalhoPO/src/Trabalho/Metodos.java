@@ -36,6 +36,7 @@ public class Metodos {
 		}
 	
 	//Método QuickSort de ordenação
+		
 	public void quicksort (){
 		ordena (0, this.tamanhoVetor-1);}
 
