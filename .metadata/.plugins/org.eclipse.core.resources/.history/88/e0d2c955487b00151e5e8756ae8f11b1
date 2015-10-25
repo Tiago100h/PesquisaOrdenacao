@@ -1,0 +1,58 @@
+package Trabalho;
+
+import Dados.Multa;
+
+public class Metodos {
+
+	public static void ShellSort(Multa[] multas) {
+		
+	}
+	
+	//QuickSort
+	public void quicksort (){
+		ordena (0, this.tamanhoVetor-1);}
+
+	private void ordena (int esq, int dir){
+		Item pivo;
+		int i = esq, j = dir;
+		Item temp;
+		
+		pivo = this.multas[(i+j)/2];
+		do {
+			while (this.multas[i].getChave() < 0)
+				i++;
+			while (this.multas[j].getChave() > 0)
+				j--;
+			if (i <= j) {
+				temp = this.multas[i];
+				this.multas[i] = this.multas[j];
+				this.multas[j] = temp;
+				i++;
+			}
+		} while (i <= j);
+		if (esq < j)
+			ordena (esq, j);
+		if (dir > i)
+			ordena (i, dir);
+	}
+	// PesquisaBinaria
+	private String pesqBinaria (String elem){
+		int meio, esq, dir;
+		esq = 0;
+		dir = this.tamanhoVetor-1;
+		while (esq <= dir){
+			meio = (esq + dir)/2;
+			if ( chave == this.multas[meio].getChave())
+				return meio;
+			else{
+				if (chave < this.multas[meio].getChave())
+					dir = meio - 1;
+				else
+					esq = meio + 1;
+			}
+		}
+		return - 1;
+	}
+	//HeapSort
+
+
