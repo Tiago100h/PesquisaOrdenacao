@@ -3,40 +3,60 @@ package Trabalho;
 import Dados.Multa;
 
 public class Metodos {
-
-	public static void ShellSort(Multa[] multas) {
-		
-	}
 	
-	
-	//Método SHELLSORT de ordenação
-	
-		public void shellsort {
-			int i, j, h;
-			Item temp;
-			h = 1;
-			do{
-				h = 3*h+1;
-			}while (h < this.multas.length);
-			do{
-				h = h/3;
-				for (i=h; i < this.multas.length; i++){
-					temp = this.multas[i];
-					j = i;
-					while (this.multas[j-h].getChave () >temp.getChave()){
-						this.multas[j] = this.multas[j-h];
-						j -= h;
-						if (j < h)
-							break;
-					}
-
-					this.multas[j] = temp;
+	/** 
+	 * MÃ©todo ShellSort de ordenaÃ§Ã£o
+	 * @param multas Vetor do tipo Multa
+	 * @return Ordena o vetor passado como parÃ¢metro
+	 */
+	public static void ShellSort(Multa[] multas) {		
+		int i, j, h;
+		Multa temp;
+		h = 1;
+		do{
+			h = 3 * h + 1;
+		}while (h < multas.length);
+		do{
+			h = h/3;
+			for (i = h; i < multas.length; i++){
+				temp = multas[i];
+				j = i;								
+				while (multas[j - h].getPlaca().compareTo(temp.getPlaca()) > 0){
+					multas[j] = multas[j-h];
+					j -= h;
+					if (j < h)
+						break;
 				}
-			}while (h != 1);
-		}
-	
-	//Método QuickSort de ordenação
-		
+				multas[j] = temp;
+			}
+		}while (h != 1);		
+	}
+
+/*	public void shellsort {
+		int i, j, h;
+		Multa temp;
+		h = 1;
+		do{
+			h = 3*h+1;
+		}while (h < this.multas.length);
+		do{
+			h = h/3;
+			for (i=h; i < this.multas.length; i++){
+				temp = this.multas[i];
+				j = i;
+				while (this.multas[j-h].getChave () >temp.getChave()){
+					this.multas[j] = this.multas[j-h];
+					j -= h;
+					if (j < h)
+						break;
+				}
+
+				this.multas[j] = temp;
+			}
+		}while (h != 1);
+	}
+
+	//MÃ©todo QuickSort de ordenaÃ§Ã£o		
 	public void quicksort (){
 		ordena (0, this.tamanhoVetor-1);}
 
@@ -44,7 +64,7 @@ public class Metodos {
 		Item pivo;
 		int i = esq, j = dir;
 		Item temp;
-		
+
 		pivo = this.multas[(i+j)/2];
 		do {
 			while (this.multas[i].getChave() < 0)
@@ -63,8 +83,8 @@ public class Metodos {
 		if (dir > i)
 			ordena (i, dir);
 	}
-	
-	
+
+
 	// PesquisaBinaria
 	private String pesqBinaria (String elem){
 		int meio, esq, dir;
@@ -84,8 +104,8 @@ public class Metodos {
 		return - 1;
 	}
 
-	//Método HEAPSORT de ordenação
-	
+	//MÃ©todo HEAPSORT de ordenaÃ§Ã£o
+
 	public void heapSort (){
 		int dir = nElem-1;
 		int esq = (dir-1)/2;
@@ -102,7 +122,7 @@ public class Metodos {
 			refazHeap(0, dir);
 		}
 	}
-	
+
 	private void refazHeap (int esq, int dir){
 		int i = esq;
 		int maiorFolha = 2*i+1;
@@ -113,12 +133,13 @@ public class Metodos {
 				if (this.multas[maiorFolha].getChave() < this.multas[maiorFolha+1].getChave())
 					maiorFolha ++;
 			if (raiz.getChave () < this.multas[maioFolha].getChave()) { this.multas[i] = this.multas[maiorFolha];
-				i = maiorFolha;
-				maiorFolha = 2*i+1;
+			i = maiorFolha;
+			maiorFolha = 2*i+1;
 			}
 			else
 				heap = true;
 		}
 		this.multas[i] = raiz;
-	}
+	}*/
 
+}
