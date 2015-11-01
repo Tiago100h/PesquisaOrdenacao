@@ -6,6 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import Dados.Multa;
 
@@ -13,7 +16,7 @@ import Dados.Multa;
 public class Apoio {
 		
 	/**
-	 * Lê e grava multas de um arquivo no vetor
+	 * Le e grava multas de um arquivo no vetor
 	 * @param caminhoArquivo Pasta em que o arquivo se encontra
 	 * @param tamanhoVetor Tamanho do vetor
 	 * @return Vetor de multas
@@ -32,8 +35,7 @@ public class Apoio {
 				multa.setPlaca(campos[0]);
 				multa.setProprietario(campos[1]);
 				multa.setLocal(campos[2]);
-				multa.setData(campos[3]);
-				multa.setHora(campos[4]);
+				multa.setDataHora(Apoio.converterData(campos[3] + campos[4]));				
 				multas[i] = multa;				
 			}	
 			br.close();
@@ -55,13 +57,31 @@ public class Apoio {
 			FileWriter arquivo = new FileWriter(caminhoArquivo);
 			PrintWriter gravarArquivo = new PrintWriter(arquivo);
 			for (int i = 0; i < multas.length; i++) {
-				gravarArquivo.println(multas[i].getPlaca() + multas[i].getProprietario()
-						+ multas[i].getLocal() + multas[i].getData() + multas[i].getHora());
+				gravarArquivo.println(multas[i].getPlaca() + ";" + multas[i].getProprietario() + ";" + multas[i].getLocal()
+						+ ";" + multas[i].getDataHora().getDate() + "/" + (multas[i].getDataHora().getMonth() + 1)
+						+ "/" + (multas[i].getDataHora().getYear() + 1900) + ";" + multas[i].getDataHora().getHours()
+						+ ":" + multas[i].getDataHora().getMinutes());
 			}
 			gravarArquivo.close();
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}		
+	}
+	
+	/**
+	 * Converte variavel do tipo String de data e hora em variavel do tipo Date
+	 * @param dataHora String de data e hora no formato "dd/MM/yyyyHH:mm"
+	 * @return Data do tipo Date
+	 */
+	public static Date converterData(String dataHora){
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyyHH:mm");
+		Date data = null;
+		try {
+			data = formato.parse(dataHora);
+		} catch (ParseException e) {
+			System.out.println(e.getMessage());;
+		}
+		return data;		
 	}
 	
 }
