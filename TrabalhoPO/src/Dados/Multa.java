@@ -1,20 +1,20 @@
 package Dados;
 
+import java.util.Date;
+
 public class Multa {
 	
 	private String placa;
 	private String proprietario;
 	private String local;
-	private String data;
-	private String hora;
+	private Date dataHora;
 		
-	public Multa(String placa, String proprietario, String local, String data, String hora) {
+	public Multa(String placa, String proprietario, String local, Date dataHora) {
 		super();
 		this.placa = placa;
 		this.proprietario = proprietario;
 		this.local = local;
-		this.data = data;
-		this.hora = hora;
+		this.dataHora = dataHora;
 	}
 	
 	public Multa() {
@@ -39,17 +39,11 @@ public class Multa {
 	public void setLocal(String local) {
 		this.local = local;
 	}
-	public String getData() {
-		return data;
+	public Date getDataHora() {
+		return dataHora;
 	}
-	public void setData(String data) {
-		this.data = data;
-	}
-	public String getHora() {
-		return hora;
-	}
-	public void setHora(String hora) {
-		this.hora = hora;
+	public void setDataHora(Date dataHora) {
+		this.dataHora = dataHora;
 	}
 
 }
