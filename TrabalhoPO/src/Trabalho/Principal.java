@@ -7,11 +7,7 @@ import Dados.Multa;
 public class Principal {
 
 	public static void main(String[] args) {
-		//1) Começar a contar o tempo
-		Date tempo = new Date();
-		long mediaTempo = tempo.getTime();
-
-		//7) Pocessar do 2 ao 6 para cada um dos tamanhos, arquivos e métodos
+		//7) Pocessar do 2 ao 6 para cada um dos tamanhos, arquivos e metodos
 		int[] tamanhos = new int[5];
 		tamanhos[0] = 500;
 		tamanhos[1] = 1000;
@@ -24,6 +20,12 @@ public class Principal {
 		tipos[2] = "ord";
 		for (int tam = 0; tam < tamanhos.length; tam++) {
 			for (int tip = 0; tip < tipos.length; tip++) {
+				
+				/**SHELL SORT**/
+				//1) Comecar a contar o tempo
+				String[] tempos = new String[4];
+				Date tempo = new Date();
+				long inicio = tempo.getTime();
 
 				//5) Processar 5 vezes do "2" ao "4"
 				for (int i = 0; i < 4; i++) {
@@ -33,20 +35,19 @@ public class Principal {
 					Multa[] multas = new Multa[tamanhos[tam]];
 					multas = Apoio.lerArquivo(caminhoArquivo, tamanhos[tam]);	
 
-					//3) Ordenar pela placa e gravar num arquivo
+					//3) Criar arquivo com as multas ordenadas
 					Metodos.ShellSort(multas);
 					caminhoArquivo = "arquivos/gerados/multa" + tamanhos[tam] + tipos[tip] + ".txt";
 					Apoio.escreverArquivo(multas, caminhoArquivo);
 
 					//4) Pesquisar placas e escrever no arquivo
-					
+
 
 				}
 
-				//6) Terminar de contar o tempo e fazer a média
-				Date horaFim = new Date();
-				horaFim.getTime();
-				mediaTempo = (mediaTempo - tempo.getTime()) / 5;
+				//6) Terminar de contar o tempo e fazer a media
+				long fim = tempo.getTime();
+				tempos[0] = String.valueOf((fim - inicio) / 5);
 
 			}
 		}
