@@ -32,29 +32,7 @@ public class Metodos {
 		}while (h != 1);		
 	}
 
-/*	public void shellsort {
-		int i, j, h;
-		Multa temp;
-		h = 1;
-		do{
-			h = 3*h+1;
-		}while (h < this.multas.length);
-		do{
-			h = h/3;
-			for (i=h; i < this.multas.length; i++){
-				temp = this.multas[i];
-				j = i;
-				while (this.multas[j-h].getChave () >temp.getChave()){
-					this.multas[j] = this.multas[j-h];
-					j -= h;
-					if (j < h)
-						break;
-				}
-
-				this.multas[j] = temp;
-			}
-		}while (h != 1);
-	}
+/*	
 
 	//Método QuickSort de ordenação		
 	public void quicksort (){
