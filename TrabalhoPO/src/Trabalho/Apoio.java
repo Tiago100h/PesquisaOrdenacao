@@ -19,7 +19,7 @@ public class Apoio {
 	 * Le e grava multas de um arquivo no vetor
 	 * @param caminhoArquivo Pasta em que o arquivo se encontra
 	 * @param tamanhoVetor Tamanho do vetor
-	 * @return Vetor de multas
+	 * @return Vetor com as multas
 	 */
 	public static Multa[] lerArquivo(String caminhoArquivo, int tamanhoVetor) {		
 		try {				
@@ -45,7 +45,6 @@ public class Apoio {
 		}
 		return null;		
 	}
-
 	
 	/**
 	 * Cria arquivo de multas a partir de um vetor
@@ -82,6 +81,32 @@ public class Apoio {
 			System.out.println(e.getMessage());;
 		}
 		return data;		
+	}
+	
+	
+	/**
+	 * Le e grava placas de um arquivo no vetor
+	 * @param caminhoArquivo Pasta em que o arquivo se encontra
+	 * @param tamanhoVetor Tamanho do vetor
+	 * @return Vetor com as placas
+	 */
+	public static String[] lerPlacas(String caminhoArquivo, int tamanhoVetor){
+		try {				
+			FileInputStream stream = new FileInputStream(caminhoArquivo);
+			InputStreamReader reader = new InputStreamReader(stream);
+			BufferedReader br = new BufferedReader(reader);	
+			String[] placas = new String[tamanhoVetor];
+			int i = -1;
+			for (String linha = br.readLine(); linha != null; linha = br.readLine()) {
+				i++;
+				placas[i] = linha;				
+			}	
+			br.close();
+			return placas;			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return null;		
 	}
 	
 }

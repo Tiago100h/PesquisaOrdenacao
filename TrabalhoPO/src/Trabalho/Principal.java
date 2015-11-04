@@ -41,7 +41,10 @@ public class Principal {
 					Apoio.escreverArquivo(multas, caminhoArquivo);
 
 					//4) Pesquisar placas e escrever no arquivo
-
+					caminhoArquivo = "arquivos/placas.txt";
+					String[] placas = new String[200];
+					placas = Apoio.lerPlacas(caminhoArquivo, 200);
+					System.out.println("Sucesso");
 
 				}
 
