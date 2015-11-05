@@ -3,11 +3,11 @@ package Trabalho;
 import Dados.Multa;
 
 public class Metodos {
-	
+
 	/** 
-	 * Método ShellSort de ordenação
+	 * Metodo ShellSort de ordenacao
 	 * @param multas Vetor do tipo Multa
-	 * @return Ordena o vetor passado como parâmetro
+	 * @return Ordena o vetor passado como parametro
 	 */
 	public static void ShellSort(Multa[] multas) {		
 		int i, j, h;
@@ -31,8 +31,32 @@ public class Metodos {
 			}
 		}while (h != 1);		
 	}
+	
+	/**
+	 * Pesquisa binaria em vetor
+	 * @param placa Placa a ser pesquisada
+	 * @param multas Vetor de multas
+	 * @return indice correspondente a placa encontrada (retorna -1 se nao encontrar)
+	 */
+	public static int pesquisaBinaria (String placa, Multa[] multas){
+		int meio, esq, dir;
+		esq = 0;
+		dir = multas.length - 1;
+		while (esq <= dir){
+			meio = (esq + dir)/2;
+			if (placa == multas[meio].getPlaca())
+				return meio;
+			else{
+				if (placa.compareTo(multas[meio].getPlaca()) < 0)
+					dir = meio - 1;
+				else
+					esq = meio + 1;
+			}
+		}
+		return - 1;
+	}
 
-/*	
+	/*	
 
 	//Método QuickSort de ordenação		
 	public void quicksort (){
@@ -60,27 +84,7 @@ public class Metodos {
 			ordena (esq, j);
 		if (dir > i)
 			ordena (i, dir);
-	}
-
-
-	// PesquisaBinaria
-	private String pesqBinaria (String elem){
-		int meio, esq, dir;
-		esq = 0;
-		dir = this.tamanhoVetor-1;
-		while (esq <= dir){
-			meio = (esq + dir)/2;
-			if ( chave == this.multas[meio].getChave())
-				return meio;
-			else{
-				if (chave < this.multas[meio].getChave())
-					dir = meio - 1;
-				else
-					esq = meio + 1;
-			}
-		}
-		return - 1;
-	}
+	}	
 
 	//Método HEAPSORT de ordenação
 

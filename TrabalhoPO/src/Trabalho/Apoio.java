@@ -12,7 +12,6 @@ import java.util.Date;
 
 import Dados.Multa;
 
-
 public class Apoio {
 		
 	/**
@@ -82,8 +81,7 @@ public class Apoio {
 		}
 		return data;		
 	}
-	
-	
+		
 	/**
 	 * Le e grava placas de um arquivo no vetor
 	 * @param caminhoArquivo Pasta em que o arquivo se encontra
@@ -107,6 +105,24 @@ public class Apoio {
 			System.out.println(e.getMessage());
 		}
 		return null;		
+	}
+	
+	/** 
+	 * Gera arquivo de multas para cada placa
+	 * @param chaves Vetor com as placas
+	 * @param multas Vetor de multas
+	 * @param caminhoArquivo Pasta que o arquivo vai ser salvo
+	 */
+	public static void escreveMultasPlacas(int[] chaves, Multa[] multas, String caminhoArquivo){		
+		try {
+			FileWriter arquivo = new FileWriter(caminhoArquivo);
+			PrintWriter gravarArquivo = new PrintWriter(arquivo);
+			for (int i = 0; i < chaves.length; i++) {
+				//falta terminar
+			}
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 }

@@ -44,8 +44,11 @@ public class Principal {
 					caminhoArquivo = "arquivos/placas.txt";
 					String[] placas = new String[200];
 					placas = Apoio.lerPlacas(caminhoArquivo, 200);
-					System.out.println("Sucesso");
-
+					int[] chaves = new int[200];
+					for (int j = 0; j < placas.length; j++) {
+						chaves[j] = Metodos.pesquisaBinaria(placas[0], multas);
+					}
+					
 				}
 
 				//6) Terminar de contar o tempo e fazer a media
