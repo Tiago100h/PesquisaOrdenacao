@@ -15,7 +15,8 @@ import Dados.Multa;
 public class Apoio {
 		
 	/**
-	 * Le e grava multas de um arquivo no vetor
+	 * Le e
+	 * Grava multas de um arquivo no vetor
 	 * @param caminhoArquivo Pasta em que o arquivo se encontra
 	 * @param tamanhoVetor Tamanho do vetor
 	 * @return Vetor com as multas
