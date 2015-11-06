@@ -40,15 +40,17 @@ public class Principal {
 					caminhoArquivo = "arquivos/gerados/multa" + tamanhos[tam] + tipos[tip] + ".txt";
 					Apoio.escreverArquivo(multas, caminhoArquivo);
 
-					//4) Pesquisar placas e escrever no arquivo
+					//4) Pesquisar placas e gerar arquivo com todas as multas de cada placa
 					caminhoArquivo = "arquivos/placas.txt";
 					String[] placas = new String[200];
 					placas = Apoio.lerPlacas(caminhoArquivo, 200);
+					caminhoArquivo = "arquivos/gerados/placasMultas.txt";
 					int[] chaves = new int[200];
 					for (int j = 0; j < placas.length; j++) {
-						chaves[j] = Metodos.pesquisaBinaria(placas[0], multas);
+						chaves[j] = Metodos.pesquisaBinaria(placas[j], multas);
 					}
-					
+					Apoio.escreveMultasPlacas(chaves, multas, caminhoArquivo);
+										
 				}
 
 				//6) Terminar de contar o tempo e fazer a media

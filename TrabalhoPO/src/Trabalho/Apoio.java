@@ -13,10 +13,9 @@ import java.util.Date;
 import Dados.Multa;
 
 public class Apoio {
-		
+
 	/**
-	 * Le e
-	 * Grava multas de um arquivo no vetor
+	 * Le e Grava multas de um arquivo no vetor
 	 * @param caminhoArquivo Pasta em que o arquivo se encontra
 	 * @param tamanhoVetor Tamanho do vetor
 	 * @return Vetor com as multas
@@ -45,12 +44,13 @@ public class Apoio {
 		}
 		return null;		
 	}
-	
+
 	/**
 	 * Cria arquivo de multas a partir de um vetor
 	 * @param multas Vetor de multas
 	 * @param caminhoArquivo Pasta que o arquivo vai ser salvo
 	 */
+	@SuppressWarnings("deprecation")
 	public static void escreverArquivo(Multa[] multas, String caminhoArquivo) {
 		try {
 			FileWriter arquivo = new FileWriter(caminhoArquivo);
@@ -66,7 +66,7 @@ public class Apoio {
 			System.out.println(e.getMessage());
 		}		
 	}
-	
+
 	/**
 	 * Converte variavel do tipo String de data e hora em variavel do tipo Date
 	 * @param dataHora String de data e hora no formato "dd/MM/yyyyHH:mm"
@@ -82,7 +82,7 @@ public class Apoio {
 		}
 		return data;		
 	}
-		
+
 	/**
 	 * Le e grava placas de um arquivo no vetor
 	 * @param caminhoArquivo Pasta em que o arquivo se encontra
@@ -107,23 +107,43 @@ public class Apoio {
 		}
 		return null;		
 	}
-	
+
 	/** 
 	 * Gera arquivo de multas para cada placa
 	 * @param chaves Vetor com as placas
 	 * @param multas Vetor de multas
 	 * @param caminhoArquivo Pasta que o arquivo vai ser salvo
 	 */
+	@SuppressWarnings("deprecation")
 	public static void escreveMultasPlacas(int[] chaves, Multa[] multas, String caminhoArquivo){		
 		try {
 			FileWriter arquivo = new FileWriter(caminhoArquivo);
 			PrintWriter gravarArquivo = new PrintWriter(arquivo);
 			for (int i = 0; i < chaves.length; i++) {
-				//falta terminar
+				int esquerda = chaves[i];
+				while (multas[esquerda].getPlaca().equals(multas[esquerda - 1]) && esquerda != 0) {
+					esquerda--;
+				}
+				int direita = chaves[i];
+				while (multas[direita].getPlaca().equals(multas[direita + 1]) && direita < multas.length) {
+					direita++;
+				}
+				if (chaves[i] == -1) {
+					gravarArquivo.println("Placa" + multas[chaves[i]].getPlaca() + "sem multa.");
+				} else {
+					gravarArquivo.println("Placa" + multas[chaves[i]].getPlaca() + " " + (direita - esquerda + 1) + "multas:");
+					for (int j = esquerda; j <= direita; j++) {
+						gravarArquivo.println(multas[j].getDataHora().getDate() + "/" + (multas[j].getDataHora().getMonth() + 1)
+								+ "/" + (multas[j].getDataHora().getYear() + 1900) + " " + multas[j].getDataHora().getHours()
+								+ ":" + multas[j].getDataHora().getMinutes());
+					}
+				}
+				gravarArquivo.println();
+				gravarArquivo.close();
 			}
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
 }
