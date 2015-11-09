@@ -45,11 +45,11 @@ public class Principal {
 					String[] placas = new String[200];
 					placas = Apoio.lerPlacas(caminhoArquivo, 200);
 					caminhoArquivo = "arquivos/gerados/placasMultas.txt";
-					int[] chaves = new int[200];
+					int[] indices = new int[200];
 					for (int j = 0; j < placas.length; j++) {
-						chaves[j] = Metodos.pesquisaBinaria(placas[j], multas);
+						indices[j] = Metodos.pesquisaBinaria(placas[j], multas);
 					}
-					Apoio.escreveMultasPlacas(chaves, multas, caminhoArquivo);
+					Apoio.escreveMultasPlacas(indices, multas, caminhoArquivo);
 										
 				}
 

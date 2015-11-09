@@ -121,17 +121,17 @@ public class Apoio {
 			PrintWriter gravarArquivo = new PrintWriter(arquivo);
 			for (int i = 0; i < chaves.length; i++) {
 				int esquerda = chaves[i];
-				while (multas[esquerda].getPlaca().equals(multas[esquerda - 1]) && esquerda != 0) {
+				while (esquerda > 0 && multas[esquerda].getPlaca().equals(multas[esquerda - 1])) {
 					esquerda--;
 				}
 				int direita = chaves[i];
-				while (multas[direita].getPlaca().equals(multas[direita + 1]) && direita < multas.length) {
+				while (direita > 0 && direita < multas.length && multas[direita].getPlaca().equals(multas[direita + 1])) {
 					direita++;
 				}
 				if (chaves[i] == -1) {
 					gravarArquivo.println("Placa" + multas[chaves[i]].getPlaca() + "sem multa.");
 				} else {
-					gravarArquivo.println("Placa" + multas[chaves[i]].getPlaca() + " " + (direita - esquerda + 1) + "multas:");
+					gravarArquivo.println("Placa " + multas[chaves[i]].getPlaca() + " " + (direita - esquerda + 1) + " multa(s):");
 					for (int j = esquerda; j <= direita; j++) {
 						gravarArquivo.println(multas[j].getDataHora().getDate() + "/" + (multas[j].getDataHora().getMonth() + 1)
 								+ "/" + (multas[j].getDataHora().getYear() + 1900) + " " + multas[j].getDataHora().getHours()
@@ -139,8 +139,8 @@ public class Apoio {
 					}
 				}
 				gravarArquivo.println();
-				gravarArquivo.close();
 			}
+			gravarArquivo.close();
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
