@@ -63,7 +63,19 @@ public class Principal {
 						indices[j] = Metodos.pesquisaBinaria(placas[j], multas);
 					}
 					Apoio.escreveMultasPlacas(indices, multas, caminhoArquivo, placas);
-										
+					/**	
+					5) AVL Pesquisar placas e gerar arquivo com todas as multas de cada placa
+					caminhoArquivo = "arquivos/placas.txt";
+					String[] placas1 = new String[200];
+					placas = Apoio.lerPlacas(caminhoArquivo, 200);
+					caminhoArquivo = "arquivos/gerados/placasMultasAVL.txt";
+					int[] indices1 = new int[200];
+					for (int j = 0; j < placas1.length; j++) {
+						indices1[j] = ArvoreAVL.chamaPesquisaAVL(placas1[j]);
+					}
+					Apoio.escreveMultasPlacas(indices1, multas, caminhoArquivo, placas1);*/
+					
+					
 				}
 
 				//6) Terminar de contar o tempo e fazer a media

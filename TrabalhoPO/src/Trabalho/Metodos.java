@@ -4,6 +4,7 @@ import Dados.Multa;
 
 public class Metodos {
 
+
 	/** 
 	 * Metodo ShellSort de ordenacao
 	 * @param multas Vetor do tipo Multa
@@ -29,6 +30,7 @@ public class Metodos {
 					j -= h;
 					if (j < h)
 						break;
+					//-----ORDENANDO PELA HORA
 					if(multas[j - h].getPlaca().equals(temp.getPlaca()) && (multas[j - h].getDataHora().getYear() >= temp.getDataHora().getYear())){
 					  if((multas[j - h].getDataHora().getYear() == temp.getDataHora().getYear())&&(multas[j - h].getDataHora().getHours() > temp.getDataHora().getHours())){
 						test = multas[j - h];
@@ -40,7 +42,7 @@ public class Metodos {
 						  temp = test;
 					  }
 				}
-				
+				//------
 				}
 				multas[j] = temp;
 				
@@ -77,13 +79,27 @@ public class Metodos {
 	 */
 		public static void insercaoDireta(Multa[] multas){
 			int i, j;
-			Multa temp;
+			Multa temp,auxil;
 			for (i=1; i < multas.length; i++){
 				temp = multas[i];
 				j = i - 1;
 				while ((j >= 0) && (multas[j].getPlaca().compareTo(temp.getPlaca()) > 0)){
 					multas[j+1] = multas[j--];
+					//-----ORDENANDO PELA HORA
 				}
+				if(multas[j].getPlaca().equals((temp.getPlaca())) && (multas[j].getDataHora().getYear() > (temp.getDataHora().getYear()))){
+						 
+						auxil = multas[j];
+						multas[j] =temp;
+						temp = auxil;
+					  }
+				if((multas[j].getDataHora().getYear() ==(temp.getDataHora().getYear())) && (multas[j].getDataHora().getHours() > (temp.getDataHora().getHours()))){
+					 
+					auxil = multas[j];
+					multas[j] =temp;
+					temp = auxil;
+				  }
+				//----------
 				multas[j+1] = temp;
 			}
 		}
@@ -105,6 +121,20 @@ public class Metodos {
 					while ((multas[j].getPlaca()).compareTo(pivo.getPlaca())>0)
 						j--;
 					if (i <= j) {
+						//-----ORDENANDO PELA HORA
+						if(multas[j].getPlaca().equals((multas[i].getPlaca())) && (multas[j].getDataHora().getYear() > (multas[i].getDataHora().getYear()))){
+							 
+							temp = multas[j];
+							multas[j] =multas[i];
+							multas[i] = temp;
+						  }
+						if((multas[j].getDataHora().getYear() ==(multas[i].getDataHora().getYear())) && (multas[j].getDataHora().getHours() > (multas[i].getDataHora().getHours()))){
+							 
+							temp = multas[j];
+							multas[j] =multas[i];
+							multas[i] = temp;
+						  }
+						//-------
 						temp = multas[i];
 						multas[i] = multas[j];
 						multas[j] = temp;
@@ -142,16 +172,33 @@ public class Metodos {
 			pivo = multas[(i+j)/2];
 			
 			do {
+				
 				while ( (multas[i].getPlaca()).compareTo(pivo.getPlaca()) < 0)
 					i++;
 				while ((multas[j].getPlaca()).compareTo(pivo.getPlaca())  > 0)
 					j--;
-				if (i <= j) {
+				
+				if (i <= j){
+					//-----ORDENANDO PELA HORA
+					if(multas[j].getPlaca().equals((multas[i].getPlaca())) && (multas[j].getDataHora().getYear() > (multas[i].getDataHora().getYear()))){
+					 
+						temp = multas[j];
+						multas[j] =multas[i];
+						multas[i] = temp;
+					  }
+					if((multas[j].getDataHora().getYear() ==(multas[i].getDataHora().getYear())) && (multas[j].getDataHora().getHours() > (multas[i].getDataHora().getHours()))){
+						 
+						temp = multas[j];
+						multas[j] =multas[i];
+						multas[i] = temp;
+					  }
+					//------------
 					temp = multas[i];
 					multas[i] = multas[j];
 					multas[j] = temp;
 					i++;
 					j--;
+					
 				}
 			}
 			while (i <= j);
@@ -161,8 +208,31 @@ public class Metodos {
 				ordenaquickSort  (i, dir, multas);
 		}	
 
+		
+		
+		
+		/*public static void ordenaDataHora (Multa[] multas) {
+		Multa temp,test;
+		
+		if(multas[j - h].getPlaca().equals(temp.getPlaca()) && (multas[j - h].getDataHora().getYear() >= temp.getDataHora().getYear())){
+			  if((multas[j - h].getDataHora().getYear() == temp.getDataHora().getYear())&&(multas[j - h].getDataHora().getHours() > temp.getDataHora().getHours())){
+				test = multas[j - h];
+				multas[j - h] = temp;
+				temp = test;
+			  }else{
+				  test = multas[j - h];
+				  multas[j - h] = temp;
+				  temp = test;
+			  }
+		}
+	
+	}*/
+		
+		
+		
+		
 		//Método HEAPSORT de ordenação
-
+		
 		public static void heapSort (Multa[] multas){
 			int dir = multas.length-1;
 			int esq = (dir-1)/2;
@@ -172,6 +242,7 @@ public class Metodos {
 				esq--;
 			}
 			while (dir > 0){
+			
 				temp = multas[0];
 				multas[0] = multas[dir];
 				multas[dir] = temp;
@@ -181,7 +252,7 @@ public class Metodos {
 		}
 		
 		public static void refazHeap (int esq, int dir, Multa[] multas){
-			
+			Multa temp1;
 			int i = esq;
 			int maiorFolha = 2*i+1;
 			Multa raiz = multas[i];
@@ -190,13 +261,25 @@ public class Metodos {
 				if (maiorFolha < dir)
 					if ( multas[maiorFolha].getPlaca().compareTo(multas[maiorFolha+1].getPlaca()) < 0)
 						maiorFolha ++;
-				if (raiz.getPlaca().compareTo(multas[maiorFolha].getPlaca()) < 0) { multas[i] = multas[maiorFolha];
+				if (raiz.getPlaca().compareTo(multas[maiorFolha].getPlaca()) < 0) {
+					multas[i] = multas[maiorFolha];
+					  
+					/*-----ORDENANDO PELA HORA
+					if(multas[0].getPlaca().equals((multas[dir].getPlaca())) && (multas[0].getDataHora().getYear() < (multas[dir].getDataHora().getYear()))){
+					 
+						temp1 = multas[dir];
+					    multas[dir] =multas[0];
+						multas[0] = temp1;
+					  }
+					
+					------*/
 				i = maiorFolha;
 				maiorFolha = 2*i+1;
 				}
 				else
 					heap = true;
 			}
+			
 			multas[i] = raiz;
 		}
 
