@@ -44,7 +44,7 @@ public class Metodos {
 		dir = multas.length - 1;
 		while (esq <= dir){
 			meio = (esq + dir)/2;
-			if (placa == multas[meio].getPlaca())
+			if (placa.compareTo(multas[meio].getPlaca()) == 0)
 				return meio;
 			else{
 				if (placa.compareTo(multas[meio].getPlaca()) < 0)

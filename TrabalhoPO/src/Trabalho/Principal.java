@@ -49,7 +49,7 @@ public class Principal {
 					for (int j = 0; j < placas.length; j++) {
 						indices[j] = Metodos.pesquisaBinaria(placas[j], multas);
 					}
-					Apoio.escreveMultasPlacas(indices, multas, caminhoArquivo);
+					Apoio.escreveMultasPlacas(indices, multas, caminhoArquivo, placas);
 										
 				}
 

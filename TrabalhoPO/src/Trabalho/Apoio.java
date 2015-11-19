@@ -108,37 +108,36 @@ public class Apoio {
 		return null;		
 	}
 
-	/** 
-	 * Gera arquivo de multas para cada placa
-	 * @param chaves Vetor com as placas
+	/**
+	 * @param indices Vetor com os indices
 	 * @param multas Vetor de multas
 	 * @param caminhoArquivo Pasta que o arquivo vai ser salvo
+	 * @param placas Vetor de placas
 	 */
 	@SuppressWarnings("deprecation")
-	public static void escreveMultasPlacas(int[] chaves, Multa[] multas, String caminhoArquivo){		
+	public static void escreveMultasPlacas(int[] indices, Multa[] multas, String caminhoArquivo, String[] placas){		
 		try {
 			FileWriter arquivo = new FileWriter(caminhoArquivo);
 			PrintWriter gravarArquivo = new PrintWriter(arquivo);
-			for (int i = 0; i < chaves.length; i++) {
-				int esquerda = chaves[i];
-				while (esquerda > 0 && multas[esquerda].getPlaca().equals(multas[esquerda - 1])) {
+			for (int i = 0; i < indices.length; i++) {
+				int esquerda = indices[i];
+				while (esquerda > 0 && multas[esquerda].getPlaca().equals(multas[esquerda - 1].getPlaca())) {
 					esquerda--;
 				}
-				int direita = chaves[i];
-				while (direita > 0 && direita < multas.length && multas[direita].getPlaca().equals(multas[direita + 1])) {
+				int direita = indices[i];
+				while (direita > 0 && direita < multas.length - 1 && multas[direita].getPlaca().equals(multas[direita + 1].getPlaca())) {
 					direita++;
 				}
-				if (chaves[i] == -1) {
-					gravarArquivo.println("Placa" + multas[chaves[i]].getPlaca() + "sem multa.");
+				if (indices[i] == -1) {
+					gravarArquivo.println("Placa " + placas[i] + " sem multa.");
 				} else {
-					gravarArquivo.println("Placa " + multas[chaves[i]].getPlaca() + " " + (direita - esquerda + 1) + " multa(s):");
+					gravarArquivo.println("Placa " + multas[indices[i]].getPlaca() + " " + (direita - esquerda + 1) + " multa(s):");
 					for (int j = esquerda; j <= direita; j++) {
 						gravarArquivo.println(multas[j].getDataHora().getDate() + "/" + (multas[j].getDataHora().getMonth() + 1)
 								+ "/" + (multas[j].getDataHora().getYear() + 1900) + " " + multas[j].getDataHora().getHours()
 								+ ":" + multas[j].getDataHora().getMinutes());
 					}
 				}
-				gravarArquivo.println();
 			}
 			gravarArquivo.close();
 		} catch (IOException e) {
