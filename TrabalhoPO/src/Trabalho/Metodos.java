@@ -11,23 +11,39 @@ public class Metodos {
 	 */
 	public static void ShellSort(Multa[] multas) {		
 		int i, j, h;
-		Multa temp;
+		Multa temp,test;
 		h = 1;
 		do{
+			
 			h = 3 * h + 1;
 		}while (h < multas.length);
 		do{
+			
 			h = h/3;
 			for (i = h; i < multas.length; i++){
 				temp = multas[i];
-				j = i;								
+				j = i;		
+				
 				while (multas[j - h].getPlaca().compareTo(temp.getPlaca()) > 0){
 					multas[j] = multas[j-h];
 					j -= h;
 					if (j < h)
 						break;
+					if(multas[j - h].getPlaca().equals(temp.getPlaca()) && (multas[j - h].getDataHora().getYear() >= temp.getDataHora().getYear())){
+					  if((multas[j - h].getDataHora().getYear() == temp.getDataHora().getYear())&&(multas[j - h].getDataHora().getHours() > temp.getDataHora().getHours())){
+						test = multas[j - h];
+						multas[j - h] = temp;
+						temp = test;
+					  }else{
+						  test = multas[j - h];
+						  multas[j - h] = temp;
+						  temp = test;
+					  }
+				}
+				
 				}
 				multas[j] = temp;
+				
 			}
 		}while (h != 1);		
 	}
@@ -56,72 +72,134 @@ public class Metodos {
 		return - 1;
 	}
 
-	/*	
-
-	//MÃ©todo QuickSort de ordenaÃ§Ã£o		
-	public void quicksort (){
-		ordena (0, this.tamanhoVetor-1);}
-
-	private void ordena (int esq, int dir){
-		Item pivo;
-		int i = esq, j = dir;
-		Item temp;
-
-		pivo = this.multas[(i+j)/2];
-		do {
-			while (this.multas[i].getChave() < 0)
-				i++;
-			while (this.multas[j].getChave() > 0)
-				j--;
-			if (i <= j) {
-				temp = this.multas[i];
-				this.multas[i] = this.multas[j];
-				this.multas[j] = temp;
-				i++;
+	/**
+	 * Método INSERÇÂODIRETA usado na QUICKINSERTION
+	 */
+		public static void insercaoDireta(Multa[] multas){
+			int i, j;
+			Multa temp;
+			for (i=1; i < multas.length; i++){
+				temp = multas[i];
+				j = i - 1;
+				while ((j >= 0) && (multas[j].getPlaca().compareTo(temp.getPlaca()) > 0)){
+					multas[j+1] = multas[j--];
+				}
+				multas[j+1] = temp;
 			}
-		} while (i <= j);
-		if (esq < j)
-			ordena (esq, j);
-		if (dir > i)
-			ordena (i, dir);
-	}	
-
-	//MÃ©todo HEAPSORT de ordenaÃ§Ã£o
-
-	public void heapSort (){
-		int dir = nElem-1;
-		int esq = (dir-1)/2;
-		Item temp;
-		while (esq >= 0){
-			refazHeap (esq, this.nElem-1);
-			esq--;
 		}
-		while (dir > 0){
-			temp = this.multas[0];
-			this.multas [0] = this.multas [dir];
-			this.multas [dir] = temp;
-			dir--;
-			refazHeap(0, dir);
+		
+		/*
+		 * Método QUICKSORTINSERÇÂO  chama o Inserção quando da divisão do vetor é menor que 25 elementos.
+		 */
+			public static void quicksortInsercao (Multa[] multas){
+				ordenaInsercao (0, multas.length-1,  multas);
+		  	}
+			public static void ordenaInsercao (int esq, int dir, Multa[] multas){
+				int i = esq, j = dir;
+				Multa pivo;
+				Multa temp;
+				pivo = multas[(i+j)/2];
+				do {
+					while ((multas[i].getPlaca()).compareTo(pivo.getPlaca()) < 0)
+						i++;
+					while ((multas[j].getPlaca()).compareTo(pivo.getPlaca())>0)
+						j--;
+					if (i <= j) {
+						temp = multas[i];
+						multas[i] = multas[j];
+						multas[j] = temp;
+						i++;
+						j--;
+					}
+				} while (i <= j);
+				if (esq < j){
+					if(j-esq>=25){
+						ordenaInsercao (esq, j, multas);
+					}else{
+						insercaoDireta(multas);
+					}
+				}
+
+				if (dir > i){
+					if(dir-i>=25){
+						ordenaInsercao (i, dir, multas);
+					}else{
+						insercaoDireta(multas);
+					}
+				}
+			}
+				
+													/*TA DANDO ERRO*/
+		//MÃ©todo QuickSort de ordenaÃ§Ã£o		
+		public static void quickSort (Multa[] multas){
+			ordenaquickSort (0, multas.length-1, multas);}
+
+		public static void ordenaquickSort (int esq, int dir, Multa[] multas ){
+		   
+			int i = esq, j = dir;
+			Multa pivo;
+			Multa temp;
+			pivo = multas[(i+j)/2];
+			
+			do {
+				while ( (multas[i].getPlaca()).compareTo(pivo.getPlaca()) < 0)
+					i++;
+				while ((multas[j].getPlaca()).compareTo(pivo.getPlaca())  > 0)
+					j--;
+				if (i <= j) {
+					temp = multas[i];
+					multas[i] = multas[j];
+					multas[j] = temp;
+					i++;
+					j--;
+				}
+			}
+			while (i <= j);
+			if (esq < j)
+				ordenaquickSort  (esq, j, multas);
+			if (dir > i)
+				ordenaquickSort  (i, dir, multas);
+		}	
+
+		//MÃ©todo HEAPSORT de ordenaÃ§Ã£o
+
+		public static void heapSort (Multa[] multas){
+			int dir = multas.length-1;
+			int esq = (dir-1)/2;
+			Multa temp;
+			while (esq >= 0){
+				refazHeap (esq, multas.length -1, multas);
+				esq--;
+			}
+			while (dir > 0){
+				temp = multas[0];
+				multas[0] = multas[dir];
+				multas[dir] = temp;
+				dir--;
+				refazHeap(0, dir, multas);
+			}
 		}
+		
+		public static void refazHeap (int esq, int dir, Multa[] multas){
+			
+			int i = esq;
+			int maiorFolha = 2*i+1;
+			Multa raiz = multas[i];
+			boolean heap = false;
+			while ((maiorFolha <= dir) && (!heap)){
+				if (maiorFolha < dir)
+					if ( multas[maiorFolha].getPlaca().compareTo(multas[maiorFolha+1].getPlaca()) < 0)
+						maiorFolha ++;
+				if (raiz.getPlaca().compareTo(multas[maiorFolha].getPlaca()) < 0) { multas[i] = multas[maiorFolha];
+				i = maiorFolha;
+				maiorFolha = 2*i+1;
+				}
+				else
+					heap = true;
+			}
+			multas[i] = raiz;
+		}
+
+		
+		 
 	}
-
-	private void refazHeap (int esq, int dir){
-		int i = esq;
-		int maiorFolha = 2*i+1;
-		Item raiz = this.multas[i];
-		boolean heap = false;
-		while ((maiorFolha <= dir) && (!heap)){
-			if (maiorFolha < dir)
-				if (this.multas[maiorFolha].getChave() < this.multas[maiorFolha+1].getChave())
-					maiorFolha ++;
-			if (raiz.getChave () < this.multas[maioFolha].getChave()) { this.multas[i] = this.multas[maiorFolha];
-			i = maiorFolha;
-			maiorFolha = 2*i+1;
-			}
-			else
-				heap = true;
-		}
-		this.multas[i] = raiz;
-	}*/
-
-}

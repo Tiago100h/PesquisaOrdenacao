@@ -36,8 +36,21 @@ public class Principal {
 					multas = Apoio.lerArquivo(caminhoArquivo, tamanhos[tam]);	
 
 					//3) Criar arquivo com as multas ordenadas
+					//------------ShellSort
 					Metodos.ShellSort(multas);
-					caminhoArquivo = "arquivos/gerados/multa" + tamanhos[tam] + tipos[tip] + ".txt";
+					caminhoArquivo = "arquivos/gerados/ShellSortMulta" + tamanhos[tam] + tipos[tip] + ".txt";
+					Apoio.escreverArquivo(multas, caminhoArquivo);
+					//----------heapSort
+					Metodos.heapSort(multas);
+					caminhoArquivo = "arquivos/gerados/heapSortMulta" + tamanhos[tam] + tipos[tip] + ".txt";
+					Apoio.escreverArquivo(multas, caminhoArquivo);
+					//------------quicksortInsercao
+					Metodos.quicksortInsercao(multas);
+					caminhoArquivo = "arquivos/gerados/quickInsMulta" + tamanhos[tam] + tipos[tip] + ".txt";
+					Apoio.escreverArquivo(multas, caminhoArquivo);
+					//------------quickSort
+					Metodos.quickSort(multas);
+    				caminhoArquivo = "arquivos/gerados/quickSortMulta" + tamanhos[tam] + tipos[tip] + ".txt";
 					Apoio.escreverArquivo(multas, caminhoArquivo);
 
 					//4) Pesquisar placas e gerar arquivo com todas as multas de cada placa
