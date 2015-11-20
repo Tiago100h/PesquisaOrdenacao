@@ -145,4 +145,17 @@ public class Apoio {
 		}
 	}
 
+	public static void escreverTempos(String[] tempos, String caminhoArquivo) {
+		try {
+			FileWriter arquivo = new FileWriter(caminhoArquivo);
+			PrintWriter gravarArquivo = new PrintWriter(arquivo);
+			for (int i = 0; i < tempos.length; i++) {
+				gravarArquivo.println(tempos[i]);
+			}			
+			gravarArquivo.close();
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
 }
