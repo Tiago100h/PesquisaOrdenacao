@@ -15,7 +15,6 @@ public class Metodos {
 		Multa temp,test;
 		h = 1;
 		do{
-
 			h = 3 * h + 1;
 		}while (h < multas.length);
 		do{
@@ -30,24 +29,27 @@ public class Metodos {
 					j -= h;
 					if (j < h)
 						break;
-					//-----ORDENANDO PELA HORA
-					if(multas[j - h].getPlaca().equals(temp.getPlaca()) && (multas[j - h].getDataHora().getYear() >= temp.getDataHora().getYear())){
-						if((multas[j - h].getDataHora().getYear() == temp.getDataHora().getYear())&&(multas[j - h].getDataHora().getHours() > temp.getDataHora().getHours())){
-							test = multas[j - h];
-							multas[j - h] = temp;
-							temp = test;
-						}else{
+//					-----ORDENANDO PELA DATA E HORA
+					if(multas[j - h].getPlaca().equals(temp.getPlaca()) && (multas[j - h].getDataHora().getYear() > temp.getDataHora().getYear())){
+						
 							test = multas[j - h];
 							multas[j - h] = temp;
 							temp = test;
 						}
-					}
-					//------
+					if(multas[j - h].getPlaca().equals(temp.getPlaca()) && (multas[j - h].getDataHora().getYear() == temp.getDataHora().getYear())&&(multas[j - h].getDataHora().getHours() > temp.getDataHora().getHours())){
+							test = multas[j - h];
+							multas[j - h] = temp;
+							temp = test;
+						}
+					
+//					------
 				}
 				multas[j] = temp;
 
 			}
-		}while (h != 1);		
+		}while (h != 1);
+		
+		ordenarDataHora(multas);
 	}
 
 	/**
@@ -75,40 +77,52 @@ public class Metodos {
 	}
 
 	/**
-	 * Método INSERÇÂODIRETA usado na QUICKINSERTION
+	 * Método INSERÇÂODIRETA usado no QUICKINSERTION
+	 * @param multas
 	 */
+	 
+	 
 	public static void insercaoDireta(Multa[] multas){
 		int i, j;
 		Multa temp,auxil;
-		for (i=1; i < multas.length; i++){
+		for (i=1; i < 26; i++){
 			temp = multas[i];
 			j = i - 1;
+
 			while ((j >= 0) && (multas[j].getPlaca().compareTo(temp.getPlaca()) > 0)){
-				multas[j+1] = multas[j--];
-				//-----ORDENANDO PELA HORA
-			}
-			if(multas[j].getPlaca().equals((temp.getPlaca())) && (multas[j].getDataHora().getYear() > (temp.getDataHora().getYear()))){
+//		        -----ORDENANDO PELA DATA E HORA
+				if(multas[j].getPlaca().equals((multas[i].getPlaca())) && (multas[j].getDataHora().getYear() > (multas[i].getDataHora().getYear()))){
+						 
+						auxil = multas[i];
+						multas[i] =multas[j];
+						multas[j] = auxil;
+					  }
+				if((multas[j].getPlaca().equals((multas[i].getPlaca())) && multas[j].getDataHora().getYear() ==(multas[i].getDataHora().getYear())) && (multas[j].getDataHora().getHours() > (multas[i].getDataHora().getHours()))){
+					 
+					auxil = multas[i];
+					multas[i] =multas[j];
+					multas[j] = auxil;
+				  }
+//				----------
 
-				auxil = multas[j];
-				multas[j] =temp;
-				temp = auxil;
-			}
-			if((multas[j].getDataHora().getYear() ==(temp.getDataHora().getYear())) && (multas[j].getDataHora().getHours() > (temp.getDataHora().getHours()))){
-
-				auxil = multas[j];
-				multas[j] =temp;
-				temp = auxil;
-			}
-			//----------
+				multas[j+1] = multas[j];
+				j--;
+				}
+			
+			
 			multas[j+1] = temp;
+
 		}
 	}
+	
 
-	/*
-	 * Método QUICKSORTINSERÇÂO  chama o Inserção quando da divisão do vetor é menor que 25 elementos.
+	/**
+	 * QUICKSORTINSERÇÂO
+	 * APLICAÇÃO INSERÇÃO DIRETA EM SUBVETORES DE TAMANHO 25
 	 */
 	public static void quicksortInsercao (Multa[] multas){
-		//ordenaInsercao (0, multas.length-1,  multas);
+		ordenaInsercao (0, multas.length-1,  multas);
+		ordenarDataHora(multas);
 	}
 	public static void ordenaInsercao (int esq, int dir, Multa[] multas){
 		int i = esq, j = dir;
@@ -121,20 +135,21 @@ public class Metodos {
 			while ((multas[j].getPlaca()).compareTo(pivo.getPlaca())>0)
 				j--;
 			if (i <= j) {
-				//-----ORDENANDO PELA HORA
+//				-----ORDENANDO PELA DATA E HORA
 				if(multas[j].getPlaca().equals((multas[i].getPlaca())) && (multas[j].getDataHora().getYear() > (multas[i].getDataHora().getYear()))){
 
 					temp = multas[j];
 					multas[j] =multas[i];
 					multas[i] = temp;
 				}
-				if((multas[j].getDataHora().getYear() ==(multas[i].getDataHora().getYear())) && (multas[j].getDataHora().getHours() > (multas[i].getDataHora().getHours()))){
-
-					temp = multas[j];
-					multas[j] =multas[i];
-					multas[i] = temp;
+				if(multas[j].getPlaca().equals((multas[i].getPlaca())) && ((multas[j].getDataHora().getYear()) == (multas[i].getDataHora().getYear())) && ((multas[j].getDataHora().getHours()) > (multas[i].getDataHora().getHours()))){
+	
+						temp = multas[j];
+						multas[j] =multas[i];
+						multas[i] = temp;
+					
 				}
-				//-------
+//				------------
 				temp = multas[i];
 				multas[i] = multas[j];
 				multas[j] = temp;
@@ -143,7 +158,7 @@ public class Metodos {
 			}
 		} while (i <= j);
 		if (esq < j){
-			if(j-esq>=25){
+			if(j-esq>=26){
 				ordenaInsercao (esq, j, multas);
 			}else{
 				insercaoDireta(multas);
@@ -151,7 +166,7 @@ public class Metodos {
 		}
 
 		if (dir > i){
-			if(dir-i>=25){
+			if(dir-i>=26){
 				ordenaInsercao (i, dir, multas);
 			}else{
 				insercaoDireta(multas);
@@ -159,46 +174,46 @@ public class Metodos {
 		}
 	}
 
-	/*TA DANDO ERRO*/
-	//MÃ©todo QuickSort de ordenaÃ§Ã£o		
+	/**
+	 * QuickSort	
+	 * @param multas
+	 */
+		
 	public static void quickSort (Multa[] multas){
-		ordenaquickSort (0, multas.length-1, multas);}
+		ordenaquickSort (0, multas.length-1, multas);
+		}
 
 	public static void ordenaquickSort (int esq, int dir, Multa[] multas ){
-
 		int i = esq, j = dir;
 		Multa pivo;
-		Multa temp;
+		Multa temp,temp1;
 		pivo = multas[(i+j)/2];
-
 		do {
-
 			while ( (multas[i].getPlaca()).compareTo(pivo.getPlaca()) < 0)
 				i++;
 			while ((multas[j].getPlaca()).compareTo(pivo.getPlaca())  > 0)
 				j--;
-
 			if (i <= j){
-				//-----ORDENANDO PELA HORA
+//				-----ORDENANDO PELA DATA E HORA
 				if(multas[j].getPlaca().equals((multas[i].getPlaca())) && (multas[j].getDataHora().getYear() > (multas[i].getDataHora().getYear()))){
 
 					temp = multas[j];
 					multas[j] =multas[i];
 					multas[i] = temp;
 				}
-				if((multas[j].getDataHora().getYear() ==(multas[i].getDataHora().getYear())) && (multas[j].getDataHora().getHours() > (multas[i].getDataHora().getHours()))){
-
-					temp = multas[j];
-					multas[j] =multas[i];
-					multas[i] = temp;
-				}
-				//------------
+				if(multas[j].getPlaca().equals((multas[i].getPlaca())) && ((multas[j].getDataHora().getYear()) == (multas[i].getDataHora().getYear())) && ((multas[j].getDataHora().getHours()) > (multas[i].getDataHora().getHours()))){
+	
+						temp = multas[j];
+						multas[j] =multas[i];
+						multas[i] = temp;
+					}
+				
+//				------------
 				temp = multas[i];
 				multas[i] = multas[j];
 				multas[j] = temp;
 				i++;
 				j--;
-
 			}
 		}
 		while (i <= j);
@@ -208,47 +223,27 @@ public class Metodos {
 			ordenaquickSort  (i, dir, multas);
 	}	
 
-
-
-
-	/*public static void ordenaDataHora (Multa[] multas) {
-		Multa temp,test;
-
-		if(multas[j - h].getPlaca().equals(temp.getPlaca()) && (multas[j - h].getDataHora().getYear() >= temp.getDataHora().getYear())){
-			  if((multas[j - h].getDataHora().getYear() == temp.getDataHora().getYear())&&(multas[j - h].getDataHora().getHours() > temp.getDataHora().getHours())){
-				test = multas[j - h];
-				multas[j - h] = temp;
-				temp = test;
-			  }else{
-				  test = multas[j - h];
-				  multas[j - h] = temp;
-				  temp = test;
-			  }
-		}
-
-	}*/
-
-
-
-
-	//MÃ©todo HEAPSORT de ordenaÃ§Ã£o
+	/**
+	 * HEAPSORT
+	 * @param multas
+	 */
 
 	public static void heapSort (Multa[] multas){
 		int dir = multas.length-1;
 		int esq = (dir-1)/2;
-		Multa temp;
+		Multa temp,temp1;
 		while (esq >= 0){
 			refazHeap (esq, multas.length -1, multas);
 			esq--;
 		}
 		while (dir > 0){
-
 			temp = multas[0];
 			multas[0] = multas[dir];
 			multas[dir] = temp;
 			dir--;
 			refazHeap(0, dir, multas);
 		}
+		ordenarDataHora (multas);
 	}
 
 	public static void refazHeap (int esq, int dir, Multa[] multas){
@@ -257,32 +252,53 @@ public class Metodos {
 		int maiorFolha = 2*i+1;
 		Multa raiz = multas[i];
 		boolean heap = false;
+		
+
 		while ((maiorFolha <= dir) && (!heap)){
 			if (maiorFolha < dir)
 				if ( multas[maiorFolha].getPlaca().compareTo(multas[maiorFolha+1].getPlaca()) < 0)
 					maiorFolha ++;
-			if (raiz.getPlaca().compareTo(multas[maiorFolha].getPlaca()) < 0) {
-				multas[i] = multas[maiorFolha];
-
-				/*-----ORDENANDO PELA HORA
-					if(multas[0].getPlaca().equals((multas[dir].getPlaca())) && (multas[0].getDataHora().getYear() < (multas[dir].getDataHora().getYear()))){
-
-						temp1 = multas[dir];
-					    multas[dir] =multas[0];
-						multas[0] = temp1;
-					  }
-
-					------*/
-				i = maiorFolha;
-				maiorFolha = 2*i+1;
-			}
+				if (raiz.getPlaca().compareTo(multas[maiorFolha].getPlaca()) < 0) {
+					
+						multas[i] = multas[maiorFolha];
+						i = maiorFolha;
+						maiorFolha = 2*i+1;
+					}
+			
 			else
 				heap = true;
 		}
+		
+			multas[i] = raiz;
+			
 
-		multas[i] = raiz;
 	}
+	
+	/**ORDENAR DATA E HOTA
+	 * USANDO PARA METODOS JA ORDENADOS
+	 * @param multas
+	 */
 
+	
+	public static void ordenarDataHora (Multa[] multas){
+		int i;
+		Multa temp;
+		for (i=1; i < multas.length; i++){
+//			-----ORDENANDO PELA DATA E HORA
+			if(multas[i-1].getPlaca().equals((multas[i].getPlaca())) && (multas[i-1].getDataHora().getYear() > (multas[i].getDataHora().getYear()))){
 
+			    temp = multas[i-1];
+				multas[i-1] =multas[i];
+				multas[i] = temp;
+			}
+			if(multas[i-1].getPlaca().equals((multas[i].getPlaca())) && ((multas[i-1].getDataHora().getYear()) == (multas[i].getDataHora().getYear())) && ((multas[i-1].getDataHora().getHours()) > (multas[i].getDataHora().getHours()))){
 
+					temp = multas[i-1];
+					multas[i-1] =multas[i];
+					multas[i] = temp;
+				}
+			
+//			------------
+		}
+	}
 }
