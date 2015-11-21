@@ -13,8 +13,8 @@ import Dados.VetorMultas;
 
 
 public class ArvoreBinaria {
-	private int quantNos;
-	private NoABB raiz;
+	private static int quantNos;
+	private static NoABB raiz;
 	public static String achadosARV="";
 	public  static boolean encontrouARV = false;
 	/**
@@ -62,15 +62,15 @@ public class ArvoreBinaria {
 	
 	int cont = 0;
 	
-	public boolean insere (Multa multas){
+	public static boolean insere (Multa multas){
 		boolean existe;
-		existe = this.pesquisa (multas);
+		existe = pesquisa (multas);
 		
 		if (existe)
 			return false;
 		else{
-			this.raiz = this.insere (multas, this.raiz);
-			this.quantNos++;
+			raiz = insere (multas, raiz);
+			quantNos++;
 			return true;
 		}
 	}
@@ -80,7 +80,7 @@ public class ArvoreBinaria {
 	 * @param no
 	 * @return
 	 */
-	private NoABB insere (Multa multas, NoABB no){
+	private static NoABB insere (Multa multas, NoABB no){
 		
 		NoABB novo = null;
 		if (no == null){
@@ -90,11 +90,11 @@ public class ArvoreBinaria {
 		else {
 
 			if ((multas.getPlaca().compareTo(no.getInfo().getPlaca()))<0) {
-				no.setEsq(this.insere (multas, no.getEsq()));
+				no.setEsq(insere (multas, no.getEsq()));
 				return no;
 			}
 			else{
-				no.setDir(this.insere (multas, no.getDir()));
+				no.setDir(insere (multas, no.getDir()));
 				return no;
 			}
 		}
@@ -107,9 +107,9 @@ public class ArvoreBinaria {
 	 * @return
 	 */
 
-	public boolean pesquisa (Multa multas){
+	public static boolean pesquisa (Multa multas){
 		NoABB temp;
-		temp = this.pesquisa (multas, this.raiz);
+		temp = pesquisa (multas, raiz);
 		if (temp != null)
 			return true;
 		else
@@ -121,15 +121,15 @@ public class ArvoreBinaria {
 	 * @param no
 	 * @return
 	 */	
-	private NoABB pesquisa (Multa multas, NoABB no){
+	private static NoABB pesquisa (Multa multa, NoABB no){
 		NoABB temp;
 		temp = no;
 		if (temp != null){
-			if(temp.getInfo().getPlaca().compareTo(multas.getPlaca())<0) 
-				temp = this.pesquisa (multas, temp.getEsq());
+			if(temp.getInfo().getPlaca().compareTo(multa.getPlaca())<0) 
+				temp = pesquisa (multa, temp.getEsq());
 			else{
-				if (temp.getInfo().getPlaca().compareTo(multas.getPlaca())>0) 
-					temp = this.pesquisa (multas, temp.getDir());
+				if (temp.getInfo().getPlaca().compareTo(multa.getPlaca())>0) 
+					temp = pesquisa (multa, temp.getDir());
 			}
 		}
 		return temp;

@@ -157,5 +157,14 @@ public class Apoio {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	public static void inserirMultaVetor(Multa[] vetor, Multa multa){
+		int i = 0;
+		while (i < vetor.length - 1 && vetor[i] != null){
+			i++;
+		}
+		if (i < vetor.length - 1)
+			vetor[i] = multa;
+	}
 
 }

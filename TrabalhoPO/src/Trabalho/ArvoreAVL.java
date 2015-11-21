@@ -6,7 +6,7 @@ import Trabalho.NoAVL;
 
 public class ArvoreAVL {
 	private static NoAVL raiz;
-	private boolean h;
+	private static boolean h;
 	public static String achadosAVL="";
 	public  static boolean encontrouAVL = false;
 	/**
@@ -22,27 +22,27 @@ public class ArvoreAVL {
 	/** Método que insere um Item
 	 * 
 	 */
-	public void insere (Multa multas ){
-		raiz = this.insere (multas, raiz);
+	public static void insere (Multa multas ){
+		raiz = insere (multas, raiz);
 	} 
 	
-	private NoAVL insere (Multa multas, NoAVL no){
+	private static NoAVL insere (Multa multas, NoAVL no){
 		if (no == null){
 			NoAVL novo = new NoAVL(multas);
-			this.h = true;
+			h = true;
 			return novo;
 		}
 		else{
 
 			if ((multas.getPlaca().compareTo(no.getInfo().getPlaca())) < 0){
 				// Insere à esquerda e verifica se precisa balancear à direita
-				no.setEsq(this.insere (multas, no.getEsq()));
-				no = this.balancearDir (no);
+				no.setEsq(insere (multas, no.getEsq()));
+				no = balancearDir (no);
 				return no;
 			}else{
 				// Insere à direita e verifica se precisa balancear à esquerda
-				no.setDir(this.insere (multas, no.getDir()));
-				no = this.balancearEsq (no);
+				no.setDir(insere (multas, no.getDir()));
+				no = balancearEsq (no);
 				return no;
 			}
 		}
@@ -52,15 +52,15 @@ public class ArvoreAVL {
 	 * @param no
 	 * @return
 	 */
-	private NoAVL balancearEsq (NoAVL no){
-		if (this.h)
+	private static NoAVL balancearEsq (NoAVL no){
+		if (h)
 			switch (no.getfB()){
 			case -1: no.setfB((byte)0);
-			this.h = false;
+			h = false;
 			break;
 			case 0 : no.setfB((byte)1);
 			break;
-			case 1 : no = this.rotaçãoEsquerda (no); }
+			case 1 : no = rotaçãoEsquerda (no); }
 		return no;
 	}
 	/**
@@ -68,15 +68,15 @@ public class ArvoreAVL {
 	 * @param no
 	 * @return
 	 */
-	private NoAVL balancearDir (NoAVL no){
-		if (this.h)
+	private static NoAVL balancearDir (NoAVL no){
+		if (h)
 			switch (no.getfB()){
 			case 1 : no.setfB((byte)0);
-			this.h = false;
+			h = false;
 			break;
 			case 0 : no.setfB((byte)-1);
 			break;
-			case -1: no = this.rotaçãoDireita (no);
+			case -1: no = rotaçãoDireita (no);
 			}
 		return no;
 	}
@@ -85,7 +85,7 @@ public class ArvoreAVL {
 	 * @param no
 	 * @return
 	 */
-	private NoAVL rotaçãoEsquerda (NoAVL no){
+	private static NoAVL rotaçãoEsquerda (NoAVL no){
 		NoAVL temp1, temp2;
 		temp1 = no.getDir();
 		if (temp1.getfB() == 1){
@@ -111,7 +111,7 @@ public class ArvoreAVL {
 			no = temp2;
 		}
 		no.setfB((byte)0);
-		this.h = false;
+		h = false;
 		return no;
 	}
 	
@@ -120,7 +120,7 @@ public class ArvoreAVL {
 	 * @param no
 	 * @return
 	 */
-	private NoAVL rotaçãoDireita (NoAVL no){
+	private static NoAVL rotaçãoDireita (NoAVL no){
 		NoAVL temp1, temp2;
 		temp1 = no.getEsq();
 		if (temp1.getfB() == -1){
@@ -146,7 +146,7 @@ public class ArvoreAVL {
 			no = temp2;
 		}
 		no.setfB((byte)0);
-		this.h = false;
+		h = false;
 		return no;
 	}
 	

@@ -183,8 +183,11 @@ public class Principal {
 					//9) Carregue o arquivo de multas
 					String caminhoArquivo = new String("arquivos/multa" + tamanhos[tam] + tipos[tip] + ".txt");
 					Multa[] multas = new Multa[tamanhos[tam]];
-					multas = Apoio.lerArquivo(caminhoArquivo, tamanhos[tam]);
-					
+					multas = Apoio.lerArquivo(caminhoArquivo, tamanhos[tam]);		
+					for (int j = 0; j < multas.length; j++) {
+						ArvoreBinaria.insere(multas[j]);
+					}
+										
 					//10) Faca a pesquisa ABB
 					caminhoArquivo = "arquivos/placas.txt";
 					String[] placas = new String[200];
@@ -216,6 +219,9 @@ public class Principal {
 					String caminhoArquivo = new String("arquivos/multa" + tamanhos[tam] + tipos[tip] + ".txt");
 					Multa[] multas = new Multa[tamanhos[tam]];
 					multas = Apoio.lerArquivo(caminhoArquivo, tamanhos[tam]);
+					for (int j = 0; j < multas.length; j++) {
+						ArvoreAVL.insere(multas[j]);						
+					}
 					
 					//10) Faca a pesquisa AVL
 					caminhoArquivo = "arquivos/placas.txt";
